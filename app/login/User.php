@@ -115,7 +115,7 @@ class User
                 return false; 
             }
         } catch (PDOException $e) {
-            echo "Erreur lors de l'insertion : " . $e->getMessage();
+          //  echo "Erreur lors de l'insertion : " . $e->getMessage();
             return false;
         }
     }

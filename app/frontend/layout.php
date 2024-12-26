@@ -115,11 +115,14 @@ airplane_ticket
 
 
              <h2 class="text-2xl text-indigo-800  "> <?php echo $title; ?></h2>
-          <div > <button class=" flex flex-row justify-around gap-2.5 text-indigo-900   hover:text-green-500 "  id="ShowForm">
-            <span class="material-symbols-outlined  ">
-              add_task
-            </span><p> Ajouter <p>
-          </button></div>
+             <div>
+                <button onclick="openModal('modal')" id_class="flex flex-row justify-around gap-2.5 text-indigo-900 hover:text-green-500" id="ShowForm">
+                    <span class="material-symbols-outlined">
+                    add_task  
+                    </span>
+                    <p> Ajouter</p>
+                </button>
+                </div>
           
                  <?php  if($title=="Gestion des reservations") {echo $serachActivite;} ?>
 

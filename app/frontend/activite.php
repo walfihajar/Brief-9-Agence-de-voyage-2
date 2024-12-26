@@ -1,8 +1,9 @@
 <?php
-include 'db.php';
 ob_start(); 
 $title = "Gestion des activites";
-
+require "../backend/classe_activite.php";
+require_once __DIR__ . '/../../includ/DB.php';
+require_once __DIR__ . '/../../includ/DatabaseManager.php';
 ?>
 
 
@@ -71,33 +72,29 @@ $title = "Gestion des activites";
 <?php
 // Ajouter un client
 if (isset($_POST['ajouter'])) {
-    $titre = mysqli_real_escape_string($conn, $_POST['titre']);
-    $description = mysqli_real_escape_string($conn, $_POST['description']);
-    $destination = mysqli_real_escape_string($conn, $_POST['destination']);
-    $prix = mysqli_real_escape_string($conn, $_POST['prix']);
-    $date_debut = mysqli_real_escape_string($conn, $_POST['date_debut']);
-    $date_fin = mysqli_real_escape_string($conn, $_POST['date_fin']);
-    $place_disponible = mysqli_real_escape_string($conn, $_POST['place_disponible']);
-
-    // Requête SQL
-    $sql = "INSERT INTO activite (titre, description, destination, prix, date_debut, date_fin, place_disponible) 
-            VALUES ('$titre', '$description', '$destination', '$prix', '$date_debut', '$date_fin', '$place_disponible')";
-
-    mysqli_query($conn, $sql);
-
-    if (mysqli_affected_rows($conn)) { 
-        echo "<p>Client ajouté avec succès !</p>";
+    $titre = $_POST['titre'];
+    $description =$_POST['description'];
+    $destination = $_POST['destination'];
+    $prix =$_POST['prix'];
+    $date_debut = $_POST['date_debut'];
+    $date_fin = $_POST['date_fin'];
+    $place_disponible = $_POST['place_disponible'];
+    $dbManager = new DatabaseManager();
+    $newActivite = new Activite($dbManager);
+    $newActivite->constructAvecParam( 0 ,$titre , $description ,$destination  ,$prix ,$date_debut , $date_fin , $place_disponible  ) ;
+    if ($newActivite->AjouterActivite()) { 
+     
         header("Location: activite.php");
         exit; 
     } else {
-        echo "<p>Erreur : " . mysqli_error($conn) . "</p>";
+        echo "<p>Erreur : insertion </p>";
     }
 }
 
 
 //https://www.w3schools.com/php/php_mysql_prepared_statements.asp
 // methode plus securise car il prepare la requete avant de l appler en plus il consomme
-if (isset($_POST["delete"])) {
+/*if (isset($_POST["delete"])) {
     $id = intval($_POST["delete"]); // S'assurer que l'ID est un entier
     echo "id : ".$id;
     // Préparer la requête SQL
@@ -119,50 +116,50 @@ if (isset($_POST["delete"])) {
         } 
     
         }
-        }
+        }*/
 // Afficher les clients
-affiche($conn) ; 
-function affiche($conn){
-    $sql = "SELECT * FROM activite";
-    $result = mysqli_query($conn, $sql);
-    
-    if (mysqli_num_rows($result) > 0) {
-    
-        echo "<div class='listeTable' ><table border='1'>";
-        echo "<tr><th>ID</th><th>titre</th><th>description</th><th>prix</th><th>date_debut</th><th>date_fin</th><th>places disponibles</th><th>Action</th></tr>";
-        while ($row = mysqli_fetch_assoc($result)) {
-            $id=$row['id_activite'];
+affiche() ; 
+function affiche(){
+    $dbManager = new DatabaseManager();
+    $newActivite = new Activite($dbManager);
+    $result = $newActivite->getAll();  // Assurez-vous que la méthode AfficheAllActivite() existe et fonctionne correctement
+   // print_r($result);
+    if ($result) {
+        echo "<div class='listeTable'><table border='1'>";
+        echo "<tr><th>ID</th><th>Titre</th><th>Description</th><th>Prix</th><th>Date Début</th><th>Date Fin</th><th>Places Disponibles</th><th>Action</th></tr>";
+        
+        foreach ($result as $objet) {
+            // Utilisez $objet->id_activite au lieu de $row['id_activite']
+            $id = $objet->id_activite;
             echo "<tr>
-                <td>{$row['id_activite']}</td>
-                <td>{$row['titre']}</td>
-                <td>{$row['description']}</td>
-                  <td>{$row['prix']}</td>
-                <td>{$row['date_debut']}</td>
-                <td>{$row['date_fin']}</td>
-                <td>{$row['place_disponible']}</td>
+                <td>{$objet->id_activite}</td>
+                <td>{$objet->titre}</td>
+                <td>{$objet->description}</td>
+                <td>{$objet->prix}</td>
+                <td>{$objet->date_debut}</td>
+                <td>{$objet->date_fin}</td>
+                <td>{$objet->place_disponible}</td>
                 <td>
-               <form   action='activite.php' method='post'>
-                    <div class='flex'>
-                        <button type='submit' name='delete' value='$id'>
-                            <span class='text-red-400 cursor-pointer material-symbols-outlined'>
-                                delete
-                            </span>
-                        </button>
-       
-    </div>
-</form>
-
+                    <form action='activite.php' method='post'>
+                        <div class='flex'>
+                            <button type='submit' name='delete' value='$id'>
+                                <span class='text-red-400 cursor-pointer material-symbols-outlined'>
+                                    delete
+                                </span>
+                            </button>
+                        </div>
+                    </form>
                 </td>
             </tr>";
         }
         echo "</table></div>";
     } else {
-        echo "<p>Aucun activite trouvée.</p>";
+        echo "<p>Aucune activité trouvée.</p>";
     }
 }
 
 
-mysqli_close($conn);
+
 ?>
 <?php
 $content = ob_get_clean(); 
