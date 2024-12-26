@@ -29,19 +29,6 @@ class Activite
         $this->archive = $archive;
     }
 
-// Constructeur avec tous les attributs
-public function constructAvecParam(int $id_activite, string $titre, string $description, string $destination, float $prix, ?string $date_debut = null, ?string $date_fin = null, ?int $place_disponible = null, string $archive = '0')
-{
-    $this->id_activite = $id_activite;
-    $this->titre = $titre;
-    $this->description = $description;
-    $this->destination = $destination;
-    $this->prix = $prix;
-    $this->date_debut = $date_debut;
-    $this->date_fin = $date_fin;
-    $this->place_disponible = $place_disponible;
-    $this->archive = $archive;
-}
 
   
     

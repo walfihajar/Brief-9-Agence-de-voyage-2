@@ -83,8 +83,8 @@ if (isset($_POST['ajouter'])) {
 
 
     //$dbManager = new DatabaseManager();
-    $newActivite = new Activite($dbManager);
-    $newActivite->constructAvecParam( 0 ,$titre , $description ,$destination  ,$prix ,$date_debut , $date_fin , $place_disponible  ) ;
+    $newActivite = new Activite($dbManager , 0 ,$titre , $description ,$destination  ,$prix ,$date_debut , $date_fin , $place_disponible  );
+ 
    $result = $newActivite->AjouterActivite() ;
     if ($result) { 
      
