@@ -4,6 +4,7 @@ $title = "Gestion des activites";
 require "../backend/classe_activite.php";
 require_once __DIR__ . '/../../includ/DB.php';
 require_once __DIR__ . '/../../includ/DatabaseManager.php';
+$dbManager = new DatabaseManager();
 ?>
 
 
@@ -79,10 +80,13 @@ if (isset($_POST['ajouter'])) {
     $date_debut = $_POST['date_debut'];
     $date_fin = $_POST['date_fin'];
     $place_disponible = $_POST['place_disponible'];
-    $dbManager = new DatabaseManager();
+
+
+    //$dbManager = new DatabaseManager();
     $newActivite = new Activite($dbManager);
     $newActivite->constructAvecParam( 0 ,$titre , $description ,$destination  ,$prix ,$date_debut , $date_fin , $place_disponible  ) ;
-    if ($newActivite->AjouterActivite()) { 
+   $result = $newActivite->AjouterActivite() ;
+    if ($result) { 
      
         header("Location: activite.php");
         exit; 
@@ -94,34 +98,24 @@ if (isset($_POST['ajouter'])) {
 
 //https://www.w3schools.com/php/php_mysql_prepared_statements.asp
 // methode plus securise car il prepare la requete avant de l appler en plus il consomme
-/*if (isset($_POST["delete"])) {
+if (isset($_POST["delete"])) {
     $id = intval($_POST["delete"]); // S'assurer que l'ID est un entier
     echo "id : ".$id;
-    // Préparer la requête SQL
-    try{
-    $query = "DELETE FROM activite WHERE id_activite = ?";
-    $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "i", $id);
-       mysqli_stmt_execute($stmt);
-       mysqli_stmt_close($stmt);
-        header("Location: activite.php");
-            exit;
+           $dbManager = new DatabaseManager();
+           $newActivite = new Activite($dbManager , $id);
+            $result= $newActivite->supprimerActivite();
+            if ($result) { 
+                header("Location: activite.php");
+                exit; 
+            } else {
+                echo "<p>Erreur : delete </p>";
+            }
         }
-        catch(mysqli_sql_exception $e){
-         $code = $e->getcode(); 
-         if($code=== 1451){
-         echo "<div class='text-red-500  text-xl semi-bold  bg-white opacity-70'>Désolé, vous ne pouvez pas supprimer cette activite car il est lié à d'autres enregistrements. </div>" ;
-        } else {
-            echo "<div class='text-red-500  text-xl semi-bold  bg-white opacity-70'>{$e->getmessage()} </div>" ;
-        } 
-    
-        }
-        }*/
 // Afficher les clients
 affiche() ; 
 function affiche(){
     $dbManager = new DatabaseManager();
-    $newActivite = new Activite($dbManager);
+    $newActivite = new Activite($dbManager , 0);
     $result = $newActivite->getAll();  // Assurez-vous que la méthode AfficheAllActivite() existe et fonctionne correctement
    // print_r($result);
     if ($result) {

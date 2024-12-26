@@ -25,12 +25,16 @@ class DatabaseManager
     }
 
     // Méthode de suppression générique
-    public function delete(string $table, string $condition, array $params): bool
+    public function delete(string $table, string $condition, int $param): bool
     {
-        $query = "DELETE FROM $table WHERE $condition";
+        $query = "DELETE FROM $table WHERE $condition =:valeur";
+        
         $stmt = $this->connection->prepare($query);
+       // $stmt->bindValue(":$param", $condition, PDO::PARAM_STR);
 
-        return $stmt->execute($params);
+        $stmt->bindValue(":valeur" , $param , PDO::PARAM_INT ) ;
+
+        return $stmt->execute();
     }
 
     // Méthode de mise à jour générique

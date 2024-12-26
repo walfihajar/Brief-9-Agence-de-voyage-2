@@ -1,3 +1,8 @@
+<?php
+ob_start();
+session_start();
+require_once 'User.php';?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -70,9 +75,8 @@
       </div>
     </div>
   </div>
-  <?php
-session_start();
-require_once 'User.php';
+<?php
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["inscrir"])) {
     // Récupération des données du formulaire

@@ -6,27 +6,17 @@ class Activite
 {
     private DatabaseManager $dbManager;
     private int $id_activite;
-    private string $titre;
-    private string $description;
-    private string $destination;
-    private float $prix;
+    private ?string $titre;
+    private ?string $description;
+    private ?string $destination;
+    private ?float $prix;
     private ?string $date_debut;
     private ?string $date_fin;
     private ?int $place_disponible;
-    private string $archive;
+    private ?string $archive;
 
-   /* public function __construct(
-        DatabaseManager $dbManager,
-        int $id_activite,
-        string $titre,
-        string $description,
-        string $destination,
-        float $prix,
-        ?string $date_debut = null,
-        ?string $date_fin = null,
-        ?int $place_disponible = null,
-        string $archive = '0'
-    ) {
+    public function __construct(DatabaseManager $dbManager, int $id_activite, string $titre = '', ?string $description = '', ?string $destination = '', ?float $prix = null, ?string $date_debut = '', ?string $date_fin = '', ?int $place_disponible =null , string $archive = '0')
+    {
         $this->dbManager = $dbManager;
         $this->id_activite = $id_activite;
         $this->titre = $titre;
@@ -37,10 +27,26 @@ class Activite
         $this->date_fin = $date_fin;
         $this->place_disponible = $place_disponible;
         $this->archive = $archive;
-    }*/
+    }
+
+// Constructeur avec tous les attributs
+public function constructAvecParam(int $id_activite, string $titre, string $description, string $destination, float $prix, ?string $date_debut = null, ?string $date_fin = null, ?int $place_disponible = null, string $archive = '0')
+{
+    $this->id_activite = $id_activite;
+    $this->titre = $titre;
+    $this->description = $description;
+    $this->destination = $destination;
+    $this->prix = $prix;
+    $this->date_debut = $date_debut;
+    $this->date_fin = $date_fin;
+    $this->place_disponible = $place_disponible;
+    $this->archive = $archive;
+}
+
+  
     
     public function getAll(): array
-{   $params=[
+   {   $params=[
         $this->archive ='0'      ]  ;
         return $this->dbManager->selectAll('activite' , $params);
     }
@@ -67,32 +73,14 @@ class Activite
 
 
 
-public function __construct(DatabaseManager $dbManager)
-{
-    $this->dbManager = $dbManager;
-}
-// Constructeur avec tous les attributs
-public function constructAvecParam(int $id_activite, string $titre, string $description, string $destination, float $prix, ?string $date_debut = null, ?string $date_fin = null, ?int $place_disponible = null, string $archive = '0')
-{
-    // Initialiser tous les attributs
-    $this->id_activite = $id_activite;
-    $this->titre = $titre;
-    $this->description = $description;
-    $this->destination = $destination;
-    $this->prix = $prix;
-    $this->date_debut = $date_debut;
-    $this->date_fin = $date_fin;
-    $this->place_disponible = $place_disponible;
-    $this->archive = $archive;
-}
 
     public function supprimerActivite(): bool
     {
-        return $this->dbManager->delete('activites', 'id_activite = ?', [$this->id_activite]);
+        return $this->dbManager->delete('activite', 'id_activite',$this->id_activite);
     }
 
     public function modifierActivite(array $nouveauxDetails): bool
     {
-        return $this->dbManager->update('activites', $nouveauxDetails, 'id_activite = ?', [$this->id_activite]);
+        return $this->dbManager->update('activite', $nouveauxDetails, 'id_activite = ?', [$this->id_activite]);
     }
 }
