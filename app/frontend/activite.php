@@ -37,7 +37,7 @@ if(isset($_POST["edit"]) ){
  <div id="modal" class="<?= $actionEdit ? '' : 'hidden' ?> fixed inset-0 flex items-center z-50 justify-center bg-white bg-opacity-50">
 
  
- <div class="relative p-6 shadow-xl rounded-lg bg-white text-gray-900 overflow-y-auto  h-[300px] lg:w-1/3">
+ <div class="relative p-6 shadow-xl rounded-lg bg-white text-gray-900 overflow-y-auto  lg:w-1/3">
         <span id="closeForm" onclick="closeModal('modal')" class="absolute right-4 top-4 text-gray-600 hover:text-gray-900 cursor-pointer material-symbols-outlined text-2xl">cancel</span>
         <h2 class="text-2xl font-bold mb-6 text-center text-yellow-500">Ajouter Activité</h2>
         <p id="pargErreur" class="hidden text-sm font-semibold px-4 py-2 mb-4 text-red-700 bg-red-100 border border-red-400 rounded">
