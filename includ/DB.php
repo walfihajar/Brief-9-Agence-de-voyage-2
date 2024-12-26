@@ -1,7 +1,7 @@
 <?php
 
 class Database
-{
+{   
     private $connection;
     private static $instance = null; // Instance PDO pour éviter plusieurs connexions
 

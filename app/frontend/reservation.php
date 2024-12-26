@@ -1,7 +1,13 @@
 <?php
-
 ob_start();
 $title = "Gestion des reservations";
+require "../backend/classe_reservation.php";
+require_once __DIR__ . '/../../includ/DB.php';
+require_once __DIR__ . '/../../includ/DatabaseManager.php';
+$dbManager = new DatabaseManager();
+?>
+
+
 
 
 
