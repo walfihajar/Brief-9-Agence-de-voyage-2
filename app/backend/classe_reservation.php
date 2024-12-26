@@ -4,7 +4,7 @@
 class Reservation 
 {
     private DatabaseManager $dbManager;
-    private int $id_reservation;
+    private ?int $id_reservation;
     private int $id_user;
     private int $id_activite;
     private Statut $statut;

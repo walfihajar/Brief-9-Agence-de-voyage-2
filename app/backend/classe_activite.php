@@ -37,7 +37,7 @@ class Activite
         $this->archive ='0'      ]  ;
         return $this->dbManager->selectAll('activite' , $params);
     }
-    public function getById(): bool
+    public function getById()
     {
         return $this->dbManager->selectAll('activite', 'id_activite = ?', [$this->id_activite]);
     }

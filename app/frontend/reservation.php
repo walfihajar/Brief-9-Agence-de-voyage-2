@@ -5,27 +5,28 @@ require "../backend/classe_reservation.php";
 require_once __DIR__ . '/../../includ/DB.php';
 require_once __DIR__ . '/../../includ/DatabaseManager.php';
 $dbManager = new DatabaseManager();
-?>
 
 
 
 
+afficher();
+function afficher(){
+    $dbManager = new DatabaseManager();
+    $newReservation = new Reservation($dbManager , 0);
+    $result = $newReservation-> getAll();
+    if($result){
+       
 
-$query = "select id_activite ,  titre from activite" ;
-$result = mysqli_query($conn,$query); 
-$serachActivite = " <div ><form action='' method='post'> 
-                        <select name='search' onchange='this.form.submit()' class='inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm'> 
-                        <option value=''> Choisir Activite </option>" ; 
-
-                   while($row = mysqli_fetch_assoc($result)){
-                
- $serachActivite .=              " <option value={$row["id_activite"]}> {$row["titre"]}  </option>" ; 
-                    }
-                    $serachActivite .=             "</select></form></div>" ; 
+        foreach ($result as $object) {
+            $id = $object ->id_reservation;
+        
+        }
+    }
 
 
 
-?>                                                                                                                                                                                                                    
+
+   ?>                                                                                                                                                                                                            
               
 
 
@@ -45,30 +46,31 @@ $serachActivite = " <div ><form action='' method='post'>
                 <div>
                     <label for="id_client" class="block font-medium mb-1">Client</label>
                     <?php
-                    $query = "select id_client , nom , prenom  from client" ;
-                    $result = mysqli_query($conn,$query); 
+                    // $query = "select id_client , nom , prenom  from client" ;
+                    // $result = mysqli_query($conn,$query);
+                    $dbManager = new DatabaseManager;
+                    $clients->query("select id_client, nom , prenom from client");
+                    foreach ($clients as $client)
                     echo"<select name='id_client'  class='inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm'> 
-                     <option value=''> Choisir Activite </option>" ; 
-                    while($row = mysqli_fetch_assoc($result)){
-                        echo"
-                        <option value={$row["id_client"]}> {$row["nom"]} {$row["prenom"]}   </option>" ; 
+                    <option value='{$client['id_client']}'>{$client['nom']} {$client['prenom']}</option>" ;
+                    
                     }
-                     echo"</select>"
                     ?>
+                    </select>
                 </div>
                 <div>
                     <label for="id_activite" class="block font-medium mb-1">Activité</label>
+                    <select name="id_activite" class='inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm'>
                     <?php
-                    $query = "select id_activite ,  titre from activite" ;
-                    $result = mysqli_query($conn,$query); 
-                    echo"<select name='id_activite'  class='inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm'> 
-                     <option value=''> Choisir Activite </option>" ; 
-                    while($row = mysqli_fetch_assoc($result)){
-                        echo"
-                        <option value={$row["id_activite"]}> {$row["titre"]}  </option>" ; 
+                    $newReservation = new Reservation($dbManager,0);
+                    $activities = $newReservation->getAll();
+                    if ($activities){
+                        foreach ($activities as $activity){
+                            echo "<option value='{$activity->id_reservation}'>{$activity-> titre}</option>";
+                        }
                     }
-                     echo"</select>"
                     ?>
+                    </select>
                 </div>
                 <div>
                     <label for="statut" class="block font-medium mb-1">Statut</label>
