@@ -119,4 +119,9 @@ class User
             return false;
         }
     }
+
+    public function deconnecter(){
+        session_start();
+        session_destroy();
+    }
 }

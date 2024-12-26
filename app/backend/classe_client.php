@@ -2,8 +2,7 @@
 
 <?php 
 
-class Activite
-{
+
     class Client {
         private DatabaseManager $dbManager;
         private int $id_user;
@@ -28,59 +27,48 @@ class Activite
             $this->id_role = $id_role;
             $this->archive = $archive;
         }
-    }
-
-
-  
     
-    public function getAll(): array
-   {   $params=[ 'archive'=>'0'  ]  ;
-        return $this->dbManager->selectAll('client' , $params);
-    }
+    
+        public function getAll(): array
+       {   $params=[ 'archive'=>'0'  ]  ;
+            return $this->dbManager->selectAll('users' , $params);
+        }
 
-    public function getById($id): ?stdClass
-    {
-    //       echo('<br/>---  id : -------------') ;
-    //     var_dump($id) ; 
-    //       echo('<br/>------ -------------') ;
-        $params=['id_activite' => $id] ;
-    //   // var_dump($params) ; 
+        public function getById($id): ?stdClass
+        {
+            $params=['id_activite' => $id] ;
+            return $this->dbManager->selectById('users', $params);
+        }
+        //changer Role
+        public function EditerRoleClient(): bool
+        {
+            $data =  [
+                'id_role' => $this->id_role 
+                ] ;
+            $condition=['id_user'=> $this->id_user] ;
+            return $this->dbManager->Update('users', $data , $condition);
+        }
+        // archive 
+        public function ArchiverClient(): bool
+        {
+            $data =  [
+                'archive' => $this->archive
+                ] ;
+            $condition=['id_user'=> $this->id_user] ;
+            return $this->dbManager->Update('users', $data , $condition);
+        }
 
-    //   echo('<br/>------ resultat -------------') ;
-    //   print_r($this->dbManager->selectById('activite', $params));
-        return $this->dbManager->selectById('activite', $params);
-    }
+        public function setIdRole(int $id_role): void {
+            $this->id_role = $id_role;
+        }
+        public function setArchive(int $archive): void {
+            $this->archive = $archive;
+        }
 
-
-
-
-
-    public function getById($id): ?stdClass
-    {
-    //       echo('<br/>---  id : -------------') ;
-    //     var_dump($id) ; 
-    //       echo('<br/>------ -------------') ;
-        $params=['id_activite' => $id] ;
-    //   // var_dump($params) ; 
-
-    //   echo('<br/>------ resultat -------------') ;
-    //   print_r($this->dbManager->selectById('activite', $params));
-        return $this->dbManager->selectById('activite', $params);
-    }
-
-    public function ArchiveClient(): bool
-    {
-        $data =  [
-            'archive' => 0
-        ] ;
-        $condition=['id_client'=> $this->id_client] ;
-        return $this->dbManager->Update('client', $data , $condition);
-    }
-
-    public function supprimerActivite(): bool
-    {
-        return $this->dbManager->delete('activite', 'id_activite',$this->id_activite);
-    }
-
+        public function supprimerClient(): bool
+        {
+            return $this->dbManager->delete('users', 'id_user',$this->id_user);
+        }
+    
  
 }

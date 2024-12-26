@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["inscrir"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $password1 = $_POST["password1"];
-    $id_role = 2;  // Rôle client
+    $id_role =3 ;  // Rôle client
 
     // Vérification de la correspondance des mots de passe
     if ($password !== $password1) {

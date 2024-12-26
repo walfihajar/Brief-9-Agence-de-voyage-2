@@ -95,25 +95,25 @@ if(isset($_POST["edit"]) ){
 
 <?php
 // Ajouter un client
-if (isset($_POST['valider']) && $_POST['id']==0  && $_POST['action']=='ajout' ) {
-    $titre = $_POST['titre'];
-    $description =$_POST['description'];
-    $destination = $_POST['destination'];
-    $prix =$_POST['prix'];
-    $date_debut = $_POST['date_debut'];
-    $date_fin = $_POST['date_fin'];
-    $place_disponible = $_POST['place_disponible'];
-    //$dbManager = new DatabaseManager();
-    $newActivite = new Activite($dbManager , 0 ,$titre , $description ,$destination  ,$prix ,$date_debut , $date_fin , $place_disponible  );
-   $result = $newActivite->AjouterActivite() ;
-    if ($result) { 
+// if (isset($_POST['valider']) && $_POST['id']==0  && $_POST['action']=='ajout' ) {
+//     $titre = $_POST['titre'];
+//     $description =$_POST['description'];
+//     $destination = $_POST['destination'];
+//     $prix =$_POST['prix'];
+//     $date_debut = $_POST['date_debut'];
+//     $date_fin = $_POST['date_fin'];
+//     $place_disponible = $_POST['place_disponible'];
+//     //$dbManager = new DatabaseManager();
+//     $newActivite = new Activite($dbManager , 0 ,$titre , $description ,$destination  ,$prix ,$date_debut , $date_fin , $place_disponible  );
+//    $result = $newActivite->AjouterActivite() ;
+//     if ($result) { 
      
-        header("Location: activite.php");
-        exit; 
-    } else {
-        echo "<p>Erreur : insertion </p>";
-    }
-}
+//         header("Location: activite.php");
+//         exit; 
+//     } else {
+//         echo "<p>Erreur : insertion </p>";
+//     }
+// }
 
 
 

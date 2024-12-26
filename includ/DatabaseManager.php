@@ -59,13 +59,9 @@ class DatabaseManager
     $cond =array_key_first($condition);
 
     $query = "UPDATE $table SET $set WHERE  $cond=?";  // j ai utlisier array_key_first($array) pour avoir id_primaire_table que j ai passe en param, vue qu j ai qu une seuele valeur j ai trouvé cette methode pour recupere une seule key et (pas valeur !!!)
-     array_push($values , $condition['id_activite']);
-
-
-     var_dump($query) ;
-   //  exit ;
+     array_push($values , $condition[$cond]);
+   //  print_r($values) ;
     $stmt = $this->connection->prepare($query);
-
     if ($stmt->execute($values)){
            echo 'modif ok' ;
             return true ;
