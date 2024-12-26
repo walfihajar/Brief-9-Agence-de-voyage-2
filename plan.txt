@@ -1,0 +1,7 @@
+le point d'interrogation (?) placé avant le type d'un attribut signifie que cet attribut peut accepter soit la valeur du type spécifié, soit la valeur null. Cela permet de rendre les propriétés optionnelles ou nullables
+Cela signifie que l'attribut $date_debut :
+            private ?string $date_debut;
+Peut contenir une chaîne de caractères (string), ou
+Peut avoir une valeur null.
+Par exemple, dans le cas d'une date de début ($date_debut), il est possible que cette date ne soit pas encore fixée, et dans ce cas, la valeur null indique qu'aucune date n'a encore été définie.
+public function getAll(): array => lorsque on specifie le type de retour de cette fonction cad que cette fonction doit retourner obligatoirement un array
