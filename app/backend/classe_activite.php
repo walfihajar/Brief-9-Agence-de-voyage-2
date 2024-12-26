@@ -33,13 +33,27 @@ class Activite
   
     
     public function getAll(): array
-   {   $params=[
-        $this->archive ='0'      ]  ;
+   {   $params=[ 'archive'=>'0'  ]  ;
         return $this->dbManager->selectAll('activite' , $params);
     }
-    public function getById(): bool
+
+
+
+
+
+
+
+    public function getById($id): ?stdClass
     {
-        return $this->dbManager->selectAll('activite', 'id_activite = ?', [$this->id_activite]);
+    //       echo('<br/>---  id : -------------') ;
+    //     var_dump($id) ; 
+    //       echo('<br/>------ -------------') ;
+        $params=['id_activite' => $id] ;
+    //   // var_dump($params) ; 
+
+    //   echo('<br/>------ resultat -------------') ;
+    //   print_r($this->dbManager->selectById('activite', $params));
+        return $this->dbManager->selectById('activite', $params);
     }
 
     public function ajouterActivite(): bool
@@ -58,6 +72,21 @@ class Activite
         return $this->dbManager->insert('activite', $data);
     }
 
+    public function EditerActivite(): bool
+    {
+        $data =  [
+            'titre' => $this->titre,
+            'description' => $this->description,
+            'destination' => $this->destination,
+            'prix' => $this->prix,
+            'date_debut' => $this->date_debut,
+            'date_fin' => $this->date_fin,
+            'place_disponible' => $this->place_disponible,
+            'archive' => $this->archive
+        ] ;
+        $condition=['id_activite'=> $this->id_activite] ;
+        return $this->dbManager->Update('activite', $data , $condition);
+    }
 
 
 
