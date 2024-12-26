@@ -95,8 +95,5 @@ class Activite
         return $this->dbManager->delete('activite', 'id_activite',$this->id_activite);
     }
 
-    public function modifierActivite(array $nouveauxDetails): bool
-    {
-        return $this->dbManager->update('activite', $nouveauxDetails, 'id_activite = ?', [$this->id_activite]);
-    }
+ 
 }

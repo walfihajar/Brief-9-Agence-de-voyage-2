@@ -68,47 +68,19 @@ class Activite
         return $this->dbManager->selectById('activite', $params);
     }
 
-    public function ajouterActivite(): bool
+    public function ArchiveClient(): bool
     {
         $data =  [
-            'id_activite' => $this->id_activite,
-            'titre' => $this->titre,
-            'description' => $this->description,
-            'destination' => $this->destination,
-            'prix' => $this->prix,
-            'date_debut' => $this->date_debut,
-            'date_fin' => $this->date_fin,
-            'place_disponible' => $this->place_disponible,
-            'archive' => $this->archive
+            'archive' => 0
         ] ;
-        return $this->dbManager->insert('activite', $data);
+        $condition=['id_client'=> $this->id_client] ;
+        return $this->dbManager->Update('client', $data , $condition);
     }
-
-    public function EditerActivite(): bool
-    {
-        $data =  [
-            'titre' => $this->titre,
-            'description' => $this->description,
-            'destination' => $this->destination,
-            'prix' => $this->prix,
-            'date_debut' => $this->date_debut,
-            'date_fin' => $this->date_fin,
-            'place_disponible' => $this->place_disponible,
-            'archive' => $this->archive
-        ] ;
-        $condition=['id_activite'=> $this->id_activite] ;
-        return $this->dbManager->Update('activite', $data , $condition);
-    }
-
-
 
     public function supprimerActivite(): bool
     {
         return $this->dbManager->delete('activite', 'id_activite',$this->id_activite);
     }
 
-    public function modifierActivite(array $nouveauxDetails): bool
-    {
-        return $this->dbManager->update('activite', $nouveauxDetails, 'id_activite = ?', [$this->id_activite]);
-    }
+ 
 }
