@@ -33,7 +33,7 @@
             
 
             <nav id="menu"
-                class="hidden lg:flex flex-col justify-center mx-auto items-center align-center mt-10">
+                class="hidden lg:flex flex-col justify-center mx-auto items-center align-center mt-16">
                 <a href="index.php"
                     class="text-orange-400 flex   justify-center  items-center m-2 w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
                     <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
@@ -135,7 +135,7 @@ airplane_ticket
         
 
 
-            <main class="flex-grow min-h-screen">
+            <main class="flex-grow ">
 
                 <div class=" h-full flex flex-col lg:flex-row lg:px-[20px] gap-20 relative justify-cente">
                     <div class=" w-full ">
@@ -153,7 +153,7 @@ airplane_ticket
     </div>
     <footer class="mt-10">
 
-        <section class=" flex flex-col md:flex-row items-center justify-between px-8 md:px-40 mb-5 ">
+        <section class=" flex flex-col md:flex-row items-center justify-between px-8 md:px-20git bra mb-5 ">
             <img src="img/logo.png" width="100" alt="logo">
             <div class="text-orange-500">
                 <h3 class="text-lg font-semibold">Follow us</h3>
