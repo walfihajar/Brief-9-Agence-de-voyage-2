@@ -2,7 +2,7 @@
 ob_start(); 
 
 session_start() ;
-    if($_SESSION['id_role'] !=1 || $_SESSION['id_role'] !=2){ //client
+    if($_SESSION['id_role'] !=1 && $_SESSION['id_role'] !=2){ //client
       header("location: erreur.php") ;
       exit ;
     }

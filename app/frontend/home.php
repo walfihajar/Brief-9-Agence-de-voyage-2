@@ -69,11 +69,29 @@ $objActivite = new Activite($dbManager , 0);
         <a href='service.html' class='hover:text-[#FEA116] '>Service</a>
         <a href='contact.html' class='hover:text-[#FEA116] '>Contact</a>
 
-        <a href='reservationClient.php' class='hover:text-[#FEA116] '>
-        <span class="material-symbols-outlined text-4xl ">
-          airplane_ticket
-          </span></i></a>
        
+          <?php if($_SESSION['id_role'] ==3 ){ //client
+                      echo " <a href='reservationClient.php' class='hover:text-[#FEA116] '>
+                <span class='material-symbols-outlined text-4xl '>
+                  airplane_ticket
+                  </span></i></a>"
+                      exit ;
+            }
+            else if($_SESSION['id_role'] ==2   ){ //admin et super admin 
+              echo " <a href='Dashboard.php' class='hover:text-[#FEA116] '>
+              <span class='material-symbols-outlined text-4xl '>
+                airplane_ticket
+                </span></i></a>"
+                    exit ;
+            } 
+            else if($_SESSION['id_role'] ==1   ){ //admin et super admin 
+              echo " <a href='client.php' class='hover:text-[#FEA116] '>
+              <span class='material-symbols-outlined text-4xl '>
+                airplane_ticket
+                </span></i></a>"
+                    exit ;
+            } 
+?>
           <div class='relative group'>
             <a href='#' id='menuToggle' class='flex items-center hover:text-[#FEA116] text-3xl'>
               <i class='fa-solid fa-user-tie'></i>
@@ -160,14 +178,13 @@ $objActivite = new Activite($dbManager , 0);
               <h5 class='card-title'>~ {$objet->titre} ~</h5>
             <ul class='list-group'>
             <li class='list-group-item'> prix : $ {$objet->prix} </li>
-            <li class='list-group-item'> de {$objet->date_debut}</li>
-            <li class='list-group-item'> jusqu'a {$objet->date_fin} </li>
+            <li class='list-group-item'> de {$objet->date_debut} jusqu'a {$objet->date_fin} </li>
             <li class='list-group-item'> Place disponible {$objet->place_disponible}</li>
             <li class='list-group-item'>  {$objet->description} </li>
             </ul>
         <form method='post' action='home.php' >
              <input type='hidden' name='id_activite' value='{$objet->id_activite}'>
-            <button type=submit name='reserver'  class=' text-end text-[#21a9db] underline hover:scale-150 transition-transform cursor-pointer inline-block'
+            <button type=submit name='reserver'  class=' mx-8 float-right text-end text-[#21a9db] underline hover:scale-150 transition-transform cursor-pointer inline-block'
             >Reserver </button>
         </form>
           </div>

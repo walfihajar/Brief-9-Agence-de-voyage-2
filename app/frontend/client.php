@@ -3,11 +3,11 @@ ob_start();
 
 
 session_start() ;
-    if($_SESSION['id_role'] !=1 || $_SESSION['id_role'] !=2 ){ //client
+    if($_SESSION['id_role'] !=1 && $_SESSION['id_role'] !=2 ){ //client
       header("location: erreur.php") ;
       exit ;
     }
-    else if($_SESSION['id_role'] ==1 || $_SESSION['id_role'] ==2  ){ //admin et super admin 
+    else if($_SESSION['id_role'] ==1   ){ //admin et super admin 
        $id_user = $_SESSION['id'] ; 
     } 
 
