@@ -110,7 +110,7 @@ if($_SERVER['REQUEST_METHOD']=="GET" && isset($_SESSION['msgSweetAlert'])){
      <img alt="A beautiful castle-like building in Quebec City, Canada" class="rounded-lg" height="200" src="https://storage.googleapis.com/a1aa/image/SlGN8l6nGMqfCCH2xjWvelhZI5VCgbVrM9riGzNqTGZHuHfnA.jpg" width="300"/>
      <img alt="Ancient temples in Bagan, Myanmar" class="rounded-lg" height="200" src="https://storage.googleapis.com/a1aa/image/cluJHuTjf6y9YyCkXopoAuVqXxi8oty1bhbYAG6DgLdE3jfTA.jpg" width="300"/>
      <div></div>
-     <img alt="Traditional Chinese architecture in a serene garden" class=" self-center git rounded-lg" height="200" src="https://storage.googleapis.com/a1aa/image/oGLoGZOe1UVMAKshfLGpe96nkL12wZ81BJxn0irlEqoUcPePB.jpg" width="300"/>
+     <img alt="Traditional    Chinese architecture in a serene garden" class=" self-center git rounded-lg" height="200" src="https://storage.googleapis.com/a1aa/image/oGLoGZOe1UVMAKshfLGpe96nkL12wZ81BJxn0irlEqoUcPePB.jpg" width="300"/>
     </div>
    </div>
      </div>
