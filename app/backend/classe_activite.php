@@ -1,6 +1,11 @@
 
 
 <?php 
+enum TypeActivite: string {
+    case VOLS = 'vols';
+    case HOTELS = 'hôtels';
+    case CIRCUIT = 'circuits touristiques';
+}
 
 class Activite
 {
@@ -14,8 +19,10 @@ class Activite
     private ?string $date_fin;
     private ?int $place_disponible;
     private ?string $archive;
+    public ?string $photo ; 
+  //  private ?typeActivite $type ; 
 
-    public function __construct(DatabaseManager $dbManager, int $id_activite, string $titre = '', ?string $description = '', ?string $destination = '', ?float $prix = null, ?string $date_debut = '', ?string $date_fin = '', ?int $place_disponible =null , string $archive = '0')
+    public function __construct(DatabaseManager $dbManager, ?int $id_activite=0 , ?string $titre = '', ?string $description = '', ?string $destination = '', ?float $prix = null, ?string $date_debut = '', ?string $date_fin = '', ?int $place_disponible =null , string $archive = '0' , ?string $photo = ''   )
     {
         $this->dbManager = $dbManager;
         $this->id_activite = $id_activite;
@@ -27,21 +34,18 @@ class Activite
         $this->date_fin = $date_fin;
         $this->place_disponible = $place_disponible;
         $this->archive = $archive;
+        $this->photo = $photo;
+
+
+      //  var_dump($this->photo) ; 
+       // exit ; 
+     //   $this->type = $type;
     }
-
-
-  
     
     public function getAll(): array
    {   $params=[ 'archive'=>'0'  ]  ;
         return $this->dbManager->selectAll('activite' , $params);
     }
-
-
-
-
-
-
 
     public function getById($id): ?stdClass
     {
@@ -67,7 +71,8 @@ class Activite
             'date_debut' => $this->date_debut,
             'date_fin' => $this->date_fin,
             'place_disponible' => $this->place_disponible,
-            'archive' => $this->archive
+            'archive' => $this->archive ,
+            'photo' => $this->photo 
         ] ;
         return $this->dbManager->insert('activite', $data);
     }
@@ -82,7 +87,9 @@ class Activite
             'date_debut' => $this->date_debut,
             'date_fin' => $this->date_fin,
             'place_disponible' => $this->place_disponible,
-            'archive' => $this->archive
+            'archive' => $this->archive,
+            'type' => $this->type,
+            'photo'=>$this->photo
         ] ;
         $condition=['id_activite'=> $this->id_activite] ;
         return $this->dbManager->Update('activite', $data , $condition);
@@ -95,5 +102,7 @@ class Activite
         return $this->dbManager->delete('activite', 'id_activite',$this->id_activite);
     }
 
+
+   
  
 }

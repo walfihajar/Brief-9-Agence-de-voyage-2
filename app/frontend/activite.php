@@ -42,7 +42,7 @@ if(isset($_POST["edit"]) ){
         <h2 class="text-2xl font-bold mb-6 text-center text-yellow-500">Ajouter Activité</h2>
         <p id="pargErreur" class="hidden text-sm font-semibold px-4 py-2 mb-4 text-red-700 bg-red-100 border border-red-400 rounded">
         </p>
-        <form id="formulaire" class="flex flex-col gap-4" action="activite.php" method="post">
+        <form id="formulaire" class="flex flex-col gap-4" action="activite.php" method="post" enctype="multipart/form-data">
             <input id="id_input" type="hidden" name="id" value="<?= $actionEdit ? $objActivite->id_activite : 0 ?>">
             <input id="action" type="hidden" name="action" value="<?= $actionEdit ? 'edit' : 'ajout' ?>">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -82,6 +82,11 @@ if(isset($_POST["edit"]) ){
                     <input id="place_disponible" name="place_disponible" type="number" placeholder="Nombre de places disponibles" value="<?= $actionEdit ? $objActivite->place_disponible : '' ?>" class="inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm">
                 </div>
 
+                <div> 
+               <input name="urlPhoto" type="file" accept="image/*"
+               class="inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm" required>
+                </div>
+
             </div>
 
             <div class="flex justify-center">
@@ -115,9 +120,37 @@ if(isset($_POST["edit"]) ){
 //     }
 // }
 
+function uploadImage($file, $uploadsDir = 'uploads/', $maxSize = 2 * 1024 * 1024, $allowedTypes = ['image/jpeg', 'image/png', 'image/gif']) {
+    if (isset($file) && $file['error'] === UPLOAD_ERR_OK) {
+        $photoTmpName = $file['tmp_name'];
+        $photoName = basename($file['name']);
+        $photoSize = $file['size'];
+        $photoType = mime_content_type($photoTmpName);
 
+        // Vérification du type
+        if (!in_array($photoType, $allowedTypes)) {
+            return ['success' => false, 'message' => "Type de fichier non supporté. Veuillez utiliser JPEG, PNG ou GIF."];
+        }
 
-// Modifier activite
+        // Vérification de la taille
+        if ($photoSize > $maxSize) {
+            return ['success' => false, 'message' => "Le fichier est trop volumineux. Limite de " . ($maxSize / (1024 * 1024)) . " Mo."];
+        }
+
+        // Création du chemin d'enregistrement avec un nom unique
+        $photoPath = $uploadsDir . uniqid() . '-' . $photoName;
+        // Déplacement du fichier
+        if (move_uploaded_file($photoTmpName, "$photoPath")) {
+            return ['success' => true, 'filePath' => $photoPath];
+        } else {
+            return ['success' => false, 'message' => "Erreur lors de l'upload de l'image."];
+        }
+    } else {
+        return ['success' => false, 'message' => "Aucun fichier sélectionné ou erreur lors de l'upload."];
+    }
+}
+
+// Modifier activite ou ajouter
 if (isset($_POST['valider'])  ) {
     $titre = $_POST['titre'];
     $_id=$_POST['id'];
@@ -127,9 +160,18 @@ if (isset($_POST['valider'])  ) {
     $date_debut = $_POST['date_debut'];
     $date_fin = $_POST['date_fin'];
     $place_disponible = $_POST['place_disponible'];
+    $uploadResult = uploadImage($_FILES['urlPhoto']);
+    $urlPhoto = $uploadResult['filePath'];
+
+
+ 
+    //$type="vols" ;
     $id = $_POST['id'] ;  // 0 si l premier ajout sinon il comport la value de l id de l element a modifier
     //$dbManager = new DatabaseManager();
-    $newActivite = new Activite($dbManager , $_id ,$titre , $description ,$destination  ,$prix ,$date_debut , $date_fin , $place_disponible  );
+    $newActivite = new Activite($dbManager , $_id ,$titre , $description ,$destination  ,$prix ,$date_debut , $date_fin , $place_disponible , 0 ,  $urlPhoto   );
+    
+    // var_dump($newActivite->photo) ; 
+    // exit ; 
     if( $_POST['id']==0  && $_POST['action']=='ajout'){
         $result = $newActivite->AjouterActivite() ;
     }
