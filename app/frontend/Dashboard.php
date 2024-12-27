@@ -1,6 +1,15 @@
 <?php
 include 'db.php';
 ob_start(); 
+session_start() ;
+    if($_SESSION['id_role'] !=1 || $_SESSION['id_role'] !=2 ){ //client
+      header("location: erreur.php") ;
+      exit ;
+    }
+    else if($_SESSION['id_role'] ==1 || $_SESSION['id_role'] ==2  ){ //admin et super admin 
+       $id_user = $_SESSION['id'] ; 
+    } 
+
 $title = "DASHBORD";
 
 $result_clients = $conn->query("SELECT COUNT(*) AS total_clients FROM client");

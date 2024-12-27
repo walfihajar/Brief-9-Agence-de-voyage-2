@@ -32,7 +32,7 @@
             </div>
             
             <?php  
-if ($_SESSION['role'] != 'client') { // Utilisez '==' pour la comparaison
+if ($_SESSION['id_role'] == 2 || $_SESSION['id_role'] == 1) { // Utilisez '==' pour la comparaison
     echo '<nav id="menu" class="hidden lg:flex flex-col justify-center mx-auto items-center align-center mt-16">
             <a href="home.php"
                 class="text-orange-400 flex justify-center items-center m-2 w-2/3 border-2 cursor-pointer border-orange-400 rounded-lg hover:scale-[1.1] hover:text-gray-800">
@@ -45,8 +45,11 @@ if ($_SESSION['role'] != 'client') { // Utilisez '==' pour la comparaison
             <a href="reservationClient.php"
                 class="text-orange-400 flex items-center m-2 justify-center w-2/3 border-2 cursor-pointer border-orange-400 rounded-lg hover:scale-[1.1] hover:text-gray-800">
                 <span class="material-symbols-outlined cursor-pointer lg:text-4xl">airplane_ticket</span> Réservation
-            </a>
-            <a href="client.php"
+            </a>';
+
+}
+if ($_SESSION['id_role'] == 1 ) { 
+          echo  '<a href="client.php"
                 class="text-orange-400 flex items-center justify-center gap-5 m-2 w-2/3 border-2 cursor-pointer border-orange-400 rounded-lg hover:scale-[1.1] hover:text-gray-800">
                 <span class="material-symbols-outlined cursor-pointer lg:text-4xl">person_add</span> Client
             </a>
@@ -72,8 +75,9 @@ if ($_SESSION['role'] == 'client') { // Utilisez '==' pour la comparaison
             </div>
 
                 <div class="flex  lg:ml-auto lg:flex-row flex-1  items-center  justify-end">
-                        <a href="#" class="text-white">
-                            <img src="./img/User.png" alt="user logo">
+                        <a href="../login/deconnecter.php" class="text-white">
+                            <img src="./img/User.png" alt="user logo"> 
+                            <p class="text-orange-400">deconnecter</p>
                         </a>
 
                 </div>

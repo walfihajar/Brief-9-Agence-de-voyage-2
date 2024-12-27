@@ -159,10 +159,10 @@ $objActivite = new Activite($dbManager , 0);
             <div class='card-body'>
               <h5 class='card-title'>~ {$objet->titre} ~</h5>
             <ul class='list-group'>
-            <li class='list-group-item'>  {$objet->prix} </li>
-            <li class='list-group-item'> {$objet->date_debut}</li>
-            <li class='list-group-item'>{$objet->date_fin} </li>
-            <li class='list-group-item'>{$objet->place_disponible}</li>
+            <li class='list-group-item'> prix : $ {$objet->prix} </li>
+            <li class='list-group-item'> de {$objet->date_debut}</li>
+            <li class='list-group-item'> jusqu'a {$objet->date_fin} </li>
+            <li class='list-group-item'> Place disponible {$objet->place_disponible}</li>
             <li class='list-group-item'>  {$objet->description} </li>
             </ul>
         <form method='post' action='home.php' >
@@ -219,12 +219,14 @@ if( $_SERVER['REQUEST_METHOD']=="POST" && isset($_POST["reserver"]) ) {
 
  }
  else {
-            sweetAlert("Attention" , "Veuillez vous identifier pour réserver. " , "erreur") ;
-            $_SESSION['msgSweetAlert']= [
-              'title' =>'Avertissment'  ,
-              'text' => "Veuillez vous identifier pour réserver. " ,
-              'status' => "erreur"
-         ] ;
+        
+  $_SESSION['msgSweetAlert']= [
+    'title' =>'Avertissment'  ,
+    'text' => 'reservation echouée',
+    'status' => 'error'
+] ;
+sweetAlert('home.php'); 
+exit; 
 }
 
  }
