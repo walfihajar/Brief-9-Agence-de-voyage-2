@@ -21,6 +21,7 @@ if($_SERVER['REQUEST_METHOD']=="GET" && isset($_SESSION['msgSweetAlert'])){
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- sweet alert-->
     <script src='https://cdn.tailwindcss.com'></script>
     <link rel='stylesheet' href='css/style.css' />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
     <link
       href='https://fonts.googleapis.com/css2?family=Merienda&display=swap'
       rel='stylesheet'
@@ -57,7 +58,6 @@ if($_SERVER['REQUEST_METHOD']=="GET" && isset($_SESSION['msgSweetAlert'])){
       </button>
       <div class='hidden lg:flex items-center space-x-6' id='navbar-menu'>
         <a href='home.php' class='hover:text-[#FEA116] '>Home</a>
-        <a href='#menu-section' class='hover:text-[#FEA116] '>Menu</a>
         <a href='about.html' class='hover:text-[#FEA116] '>About</a>
         <a href='service.html' class='hover:text-[#FEA116] '>Service</a>
         <a href='contact.html' class='hover:text-[#FEA116] '>Contact</a>
@@ -74,9 +74,9 @@ if($_SERVER['REQUEST_METHOD']=="GET" && isset($_SESSION['msgSweetAlert'])){
               id='dropdownMenu'
               class='absolute hidden bg-gray-800 text-white mt-2 rounded shadow-md p-2 space-y-2'
             >
-              <a href='login/login.php' class='block hover:bg-gray-700 p-2 rounded'>se connecter</a>
-              <a href='login/register.php' class='block hover:bg-gray-700 p-2 rounded'>s'inscrire</a>
-              <a href='login/deconnecter.php' class='block hover:bg-gray-700 p-2 rounded'>se deconnecter</a>
+              <a href='../login/login.php' class='block hover:bg-gray-700 p-2 rounded'>se connecter</a>
+              <a href='../login/register.php' class='block hover:bg-gray-700 p-2 rounded'>s'inscrire</a>
+              <a href='../login/login/deconnecter.php' class='block hover:bg-gray-700 p-2 rounded'>se deconnecter</a>
             </div>
           </div>
        
@@ -84,23 +84,35 @@ if($_SERVER['REQUEST_METHOD']=="GET" && isset($_SESSION['msgSweetAlert'])){
     </nav>
 
     <!-- Hero Section -->
-    <div class="bg-[url('images/imgs/header.png')] bg-cover  py-16">
-      <div
-        class='container mx-auto flex flex-col lg:flex-row items-center justify-between'
-      >
-        <div class='lg:w-1/2 text-center lg:text-left space-y-6 p-2.5'>
-          <h1 class='text-4xl lg:text-6xl font-bold text-yellow-100'>
-            <?php 
-              // if (isset($_SESSION['name']) )
-              //        {echo "Bonjour Notre cher Client" . $_SESSION['name'] ;}
-              //        else 
-              //        {echo "Profitez de Notre Experience depuis 50ans"  ;}  
-               //ligne 95?>
-          </h1> <p class='text-white leading-relaxed'>
-            Découvrez l'excellence gastronomique avec notre chef de cuisine passionné. Offrez à vos papilles une expérience inoubliable à travers des plats créatifs.
-          </p>
-      
-        </div>
+    <div class="px-6 md:px-20 lg:px-40 py-10  bg-[url('img/map3.png')] bg-[#FAF5F1] no-repeat bg-cover" 
+    >
+   <div class="md:flex md:space-x-10">
+    <div class="md:w-1/2">
+     <h1 class="text-4xl md:text-5xl font-bold leading-tight">
+     Voyagez au-delà , 
+      <br/>
+      au-delà
+      <span class="text-orange-500">
+      des frontières
+      </span>
+      <br/>
+      vivez l'inoubliable
+     </h1>
+     <p class="mt-6 text-gray-700">
+     Découvrez les Merveilles Cachées du Monde
+     Découvrez les moments uniques et les trésors cachés qui déclenchent des expériences inoubliables. Des rencontres rares aux destinations remarquables, nous vous aidons à dévoiler l'étincelle qui transforme chaque voyage en une histoire précieuse
+     </p>
+     <button class="mt-6 bg-orange-500 text-white px-6 py-3 rounded-full">
+     Planifiez votre voyage
+     </button>
+    </div>
+    <div class="mt-10 md:mt-0 md:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+     <img alt="A beautiful castle-like building in Quebec City, Canada" class="rounded-lg" height="200" src="https://storage.googleapis.com/a1aa/image/SlGN8l6nGMqfCCH2xjWvelhZI5VCgbVrM9riGzNqTGZHuHfnA.jpg" width="300"/>
+     <img alt="Ancient temples in Bagan, Myanmar" class="rounded-lg" height="200" src="https://storage.googleapis.com/a1aa/image/cluJHuTjf6y9YyCkXopoAuVqXxi8oty1bhbYAG6DgLdE3jfTA.jpg" width="300"/>
+     <img alt="Traditional Chinese architecture in a serene garden" class="rounded-lg" height="200" src="https://storage.googleapis.com/a1aa/image/oGLoGZOe1UVMAKshfLGpe96nkL12wZ81BJxn0irlEqoUcPePB.jpg" width="300"/>
+    </div>
+   </div>
+     </div>
       <!-- <div class='lg:w-1/2 flex justify-center lg:justify-end'>
           <img
             class='w-84 h-80 rounded-lg'
@@ -112,9 +124,9 @@ if($_SERVER['REQUEST_METHOD']=="GET" && isset($_SESSION['msgSweetAlert'])){
     </div>
 
 <!-- Menu Section -->
-<div id='menu-section' class="py-16 px-10    bg-[url('img/map3.png')] bg-[#FAF5F1] no-repeat bg-cover">
-  <h2 class='text-center text-3xl font-bold text-gray-800 mb-8'>
-    ~ Nos Plans  ~
+<div id='menu-section' class="py-16 px-10    bg-[url('img/map3.png')] bg-[#FAF5F1] no-repeat bg-cover pt-10">
+  <h2 class='text-center text-5xl font-bold text-gray-800 mb-8'>
+    ~ TOP PLAN ~
   </h2>
   <div class='menu-cards grid grid-cols-4 '> 
    <!--  //    <img class='card-img-top' src='$urlPhoto' alt='{$nomMenu}' />-->
@@ -310,11 +322,29 @@ if (isset($_GET['id_activite']) && is_numeric($_GET['id_activite'])) {
 
 
 
- 
+<div class="h-80 container-fluid bg-[#0f172b] bg-[url('img/footer1.jpg')] bg-opacity-50 no-repeat bg-cover text-[#333333] pt-5" 
+     style="background-size: 100% auto; background-position: center;">
+    <div class="flex flex-col items-center justify-center h-full text-white text-center">
+        <h1 class="text-3xl font-bold mb-6">Partez à l’aventure, revenez avec des souvenirs</h1>
+        <form class="w-full max-w-md relative">
+            <input type="text"  placeholder="Recherchez votre prochaine destination" 
+                   class="w-full p-4 text-gray-700   placeholder:text-sm  rounded-full focus:outline-none focus:ring-2 focus:ring-[#FEA116]">
+            <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#FEA116] text-white px-2 py-1 rounded-full"><span class="material-symbols-outlined">search</span>
+            </button>
+        </form>
+    </div>
+</div>
 
-<footer class="container-fluid bg-[#0f172b] bg-[url('img/footer1.jpg')] bg-[#FAF5F1] no-repeat bg-cover text-[#333333] pt-5 ">
-    <div class='container py-5 px-10'>
-        <div class='grid grid-cols-1 lg:grid-cols-4 gap-5'>
+
+
+
+
+
+
+
+<footer class="container-fluid bg-[#0f172b] bg-[url('img/map3.png')] bg-[#FAF5F1] no-repeat bg-cover text-[#333333]  pt-5 ">
+    <div class='container py-5'>
+        <div class='grid grid-cols-1 lg:grid-cols-4 gap-5 px-10'>
             <div class='space-y-4 flex flex-col'>
                 <h4 class='section-title text-[#FEA116] mb-4'>Company</h4>
                 <a class='text-[#333333]' href=''>About Us</a>
@@ -365,5 +395,3 @@ if (isset($_GET['id_activite']) && is_numeric($_GET['id_activite'])) {
 </html>
 
 
-
-?>
