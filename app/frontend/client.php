@@ -1,5 +1,17 @@
 <?php
 ob_start(); 
+
+
+session_start() ;
+    if($_SESSION['role']=="client"){ //client
+      header("location: erreur.php") ;
+      exit ;
+    }
+    else if($_SESSION['id_role'] ==1 || $_SESSION['id_role'] ==2  ){ //admin et super admin 
+       $id_user = $_SESSION['id'] ; 
+    } 
+
+
 $title = "Gestion des Clients";
 require "../backend/classe_Client.php";
 require_once __DIR__ . '/../../includ/DB.php';

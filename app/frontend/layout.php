@@ -31,35 +31,28 @@
                 <img class="mx-auto" src="img/logo.png" width="150" alt="logo">
             </div>
             
-
-            <nav id="menu"
-                class="hidden lg:flex flex-col justify-center mx-auto items-center align-center mt-16">
-                <a href="index.php"
-                    class="text-orange-400 flex   justify-center  items-center m-2 w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
-                    <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
-                        Home </span> Accueil
-                </a>
-                <a href="activite.php"
-                    class="text-orange-400 flex items-center justify-center m-2  w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
-                    <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
-                        kayaking </span> Activite
-                </a>
-                <a href="reservation.php"
-                    class="text-orange-400 flex items-center m-2  justify-center    w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
-                    <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
-
-airplane_ticket
-</span> reservation
-                </a>
-                <a href="client.php"
-                    class="text-orange-400 flex items-center justify-center gap-5 m-2 w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
-                    <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
-                        person_add </span> Client
-                </a>
-
-               
-            </nav>
-
+            <?php  
+if ($_SESSION['role'] != 'client') { // Utilisez '==' pour la comparaison
+    echo '<nav id="menu" class="hidden lg:flex flex-col justify-center mx-auto items-center align-center mt-16">
+            <a href="home.php"
+                class="text-orange-400 flex justify-center items-center m-2 w-2/3 border-2 cursor-pointer border-orange-400 rounded-lg hover:scale-[1.1] hover:text-gray-800">
+                <span class="material-symbols-outlined cursor-pointer lg:text-4xl">Home</span> Accueil
+            </a>
+            <a href="activite.php"
+                class="text-orange-400 flex items-center justify-center m-2 w-2/3 border-2 cursor-pointer border-orange-400 rounded-lg hover:scale-[1.1] hover:text-gray-800">
+                <span class="material-symbols-outlined cursor-pointer lg:text-4xl">kayaking</span> Activité
+            </a>
+            <a href="reservation.php"
+                class="text-orange-400 flex items-center m-2 justify-center w-2/3 border-2 cursor-pointer border-orange-400 rounded-lg hover:scale-[1.1] hover:text-gray-800">
+                <span class="material-symbols-outlined cursor-pointer lg:text-4xl">airplane_ticket</span> Réservation
+            </a>
+            <a href="client.php"
+                class="text-orange-400 flex items-center justify-center gap-5 m-2 w-2/3 border-2 cursor-pointer border-orange-400 rounded-lg hover:scale-[1.1] hover:text-gray-800">
+                <span class="material-symbols-outlined cursor-pointer lg:text-4xl">person_add</span> Client
+            </a>
+        </nav>'; 
+} 
+?>
 
         </aside>
         <div  class="w-full">
@@ -115,14 +108,7 @@ airplane_ticket
 
 
              <h2 class="text-2xl text-indigo-800  "> <?php echo $title; ?></h2>
-             <div>
-                <button onclick="openModal('modal')" id_class="flex flex-row justify-around gap-2.5 text-indigo-900 hover:text-green-500" id="ShowForm">
-                    <span class="material-symbols-outlined">
-                    add_task  
-                    </span>
-                    <p> Ajouter</p>
-                </button>
-                </div>
+          
           
                  <?php  if($title=="Gestion des reservations") {echo $serachActivite;} ?>
 

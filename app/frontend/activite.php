@@ -1,5 +1,14 @@
 <?php
 ob_start(); 
+
+session_start() ;
+    if($_SESSION['role']=="client"){ //client
+      header("location: erreur.php") ;
+      exit ;
+    }
+    else if($_SESSION['id_role'] ==1 || $_SESSION['id_role'] ==2  ){ //admin et super admin 
+       $id_user = $_SESSION['id'] ; 
+    }
 $title = "Gestion des activites";
 require "../backend/classe_activite.php";
 require_once __DIR__ . '/../../includ/DB.php';
@@ -33,6 +42,15 @@ if(isset($_POST["edit"]) ){
 
 
    <!-- #form -->
+   <div class="relative mx-20 mb-10">
+    <button onclick="openModal('modal')" class=" float-right flex flex-row justify-around gap-2.5 text-indigo-900 hover:text-green-500" id="ShowForm">
+        <span class="material-symbols-outlined">
+            add_task  
+        </span>
+        <span> Ajouter</span>
+    </button>
+</div>
+
 
  <div id="modal" class="<?= $actionEdit ? '' : 'hidden' ?> fixed inset-0 flex items-center z-50 justify-center bg-white bg-opacity-50">
 

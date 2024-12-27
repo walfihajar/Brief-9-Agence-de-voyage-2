@@ -1,8 +1,9 @@
 
 
 <?php 
-
-
+// Il y a une relation qui lie l'utilisateur au client. C'est une relation d'héritage. Normalement, nous devons 
+// créer une classe Client qui hérite de User (qui utlise la methode standard) , mais vu que nous avons travaillé avec DatabaseManager, 
+// nous n'avons pas implémenté l'héritage.
     class Client {
         private DatabaseManager $dbManager;
         private int $id_user;

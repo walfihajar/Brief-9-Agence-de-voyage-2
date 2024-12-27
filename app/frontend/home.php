@@ -1,19 +1,20 @@
 <?php
+//ob_start();
 session_start() ; 
 require("../../sweetAlert/sweetAlert.php"); 
 
 require "../backend/classe_activite.php";
-require "../../backend/class_reservation.php";
+require "../backend/class_reservation.php";
 
 require_once __DIR__ . '/../../includ/DB.php';
 require_once __DIR__ . '/../../includ/DatabaseManager.php';
 $dbManager = new DatabaseManager();
 $objActivite = new Activite($dbManager , 0);
 
-/*require("sweetAlert/sweetAlert.php"); 
-if($_SERVER['REQUEST_METHOD']=="GET" && isset($_SESSION['msgSweetAlert'])){
-  sweetAlert(); 
-}*/
+
+// if($_SERVER['REQUEST_METHOD']=="POST" && isset($_SESSION['msgSweetAlert'])){
+//   sweetAlert(); 
+// }
 
 ?>
 <!DOCTYPE html>
@@ -67,9 +68,11 @@ if($_SERVER['REQUEST_METHOD']=="GET" && isset($_SESSION['msgSweetAlert'])){
         <a href='about.html' class='hover:text-[#FEA116] '>About</a>
         <a href='service.html' class='hover:text-[#FEA116] '>Service</a>
         <a href='contact.html' class='hover:text-[#FEA116] '>Contact</a>
-        <a href='gestion/gestionRes_Client.php' class='hover:text-[#FEA116] text-3xl '>
 
-          <i class='fa-solid fa-utensils'></i></a>
+        <a href='reservationClient.php' class='hover:text-[#FEA116] '>
+        <span class="material-symbols-outlined text-4xl ">
+          airplane_ticket
+          </span></i></a>
        
           <div class='relative group'>
             <a href='#' id='menuToggle' class='flex items-center hover:text-[#FEA116] text-3xl'>
@@ -82,7 +85,7 @@ if($_SERVER['REQUEST_METHOD']=="GET" && isset($_SESSION['msgSweetAlert'])){
             >
               <a href='../login/login.php' class='block hover:bg-gray-700 p-2 rounded'>se connecter</a>
               <a href='../login/register.php' class='block hover:bg-gray-700 p-2 rounded'>s'inscrire</a>
-              <a href='../login/login/deconnecter.php' class='block hover:bg-gray-700 p-2 rounded'>se deconnecter</a>
+              <a href='../login/deconnecter.php' class='block hover:bg-gray-700 p-2 rounded'>se deconnecter</a>
             </div>
           </div>
        
@@ -94,7 +97,14 @@ if($_SERVER['REQUEST_METHOD']=="GET" && isset($_SESSION['msgSweetAlert'])){
     >
    <div class="md:flex md:space-x-10">
     <div class="md:w-1/2">
-     <h1 class="text-4xl md:text-5xl font-bold leading-tight">
+   
+    <p class="text-2xl text-gray-700 mb-5">
+    <?php if (isset($_SESSION['role']) && $_SESSION['role']=="client") { ?>
+        <span class='text-orange-500'><?php echo htmlspecialchars($_SESSION['nom'], ENT_QUOTES, 'UTF-8'); ?></span>
+    <?php } ?>
+    </p>
+   
+    <h1 class="text-4xl md:text-5xl font-bold leading-tight">
      Voyagez au-delà , 
       <br/>
       au-delà
@@ -155,7 +165,7 @@ if($_SERVER['REQUEST_METHOD']=="GET" && isset($_SESSION['msgSweetAlert'])){
             <li class='list-group-item'>{$objet->place_disponible}</li>
             <li class='list-group-item'>  {$objet->description} </li>
             </ul>
-        <form method='get' action='home.php' >
+        <form method='post' action='home.php' >
              <input type='hidden' name='id_activite' value='{$objet->id_activite}'>
             <button type=submit name='reserver'  class=' text-end text-[#21a9db] underline hover:scale-150 transition-transform cursor-pointer inline-block'
             >Reserver </button>
@@ -177,39 +187,44 @@ if($_SERVER['REQUEST_METHOD']=="GET" && isset($_SESSION['msgSweetAlert'])){
 if( $_SERVER['REQUEST_METHOD']=="POST" && isset($_POST["reserver"]) ) {
   // echo "<div><p>Réserver</p><div>";
    if($_SESSION['role']=="client"){
-    $id_client = mysqli_real_escape_string($conn, $_POST['id_client']);
-    $id_activite = mysqli_real_escape_string($conn, $_POST['id_activite']);
-    $statut = mysqli_real_escape_string($conn, $_POST['statut']);
-    $date_reservation = NOW();
+    $id_client =  $_SESSION['id'];
+    // var_dump($id_client) ;
+    // exit;
+    $id_activite =  $_POST['id_activite'];
+    $date_reservation = date('Y-m-d H:i:s');
     $id_user = $_SESSION["id"];
-    $statut = 'En attente';
+    $statut = Statut::enAttente;
    $ObjetReservation = new Reservation(0 , $id_client ,$id_activite ,$statut ,  $date_reservation );
    $result = Reservation::createReservation($ObjetReservation);
-   
- 
+
+
    if($result){
     $_SESSION['msgSweetAlert'] = [
          'title' =>'success'  ,
          'text' => 'reservation effectue avec succes , veuillez attendre la confirmation de votre réservation ',
          'status'=> 'success'
     ]  ;
-    header("Location: home.php");
-    exit;
+    sweetAlert('home.php'); 
+    exit; 
+
   } else{
     $_SESSION['msgSweetAlert']= [
       'title' =>'Avertissment'  ,
       'text' => 'reservation echouée',
       'status' => 'error'
  ] ;
-
-
-   
-    //sweetAlert( "erreur " , "Erreur lors de supprission de reservation " , "error") ;
+ sweetAlert('home.php'); 
+ exit; 
    }
 
  }
  else {
             sweetAlert("Attention" , "Veuillez vous identifier pour réserver. " , "erreur") ;
+            $_SESSION['msgSweetAlert']= [
+              'title' =>'Avertissment'  ,
+              'text' => "Veuillez vous identifier pour réserver. " ,
+              'status' => "erreur"
+         ] ;
 }
 
  }

@@ -15,7 +15,7 @@ require_once 'User.php';?>
 <body>
   <div class="flex flex-col justify-center items-center w-full h-[100vh] bg-[#282D2D] px-5">
     <div class="flex flex-col items-end justify-start overflow-hidden mb-2 xl:max-w-3xl w-full">
-    <a href="../index.php" class="flex items-center space-x-4 text-white">
+    <a href="../../home.php" class="flex items-center space-x-4 text-white">
              <i class="fas fa-home"></i>
             <span>Accueil</span>
         </a> 
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["inscrir"])) {
             $_SESSION['role'] = "client";
 
             // Redirection après inscription réussie
-            header("Location: ../app/frontendhome.php");
+            header("Location: login.php");
             exit();
         } else {
             $error_message = "Erreur lors de l'inscription.";

@@ -1,3 +1,11 @@
+
+<?php
+ob_start();
+session_start() ; 
+require("../../sweetAlert/sweetAlert.php"); 
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,10 +14,12 @@
   <title>Connexion</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- sweet alert-->
 </head>
 <body>
   <div class="flex flex-col justify-center items-center w-full h-[100vh] bg-[#282D2D]  px-5">
-    <div class="flex flex-col items-end justify-start overflow-hidden mb-2 xl:max-w-3xl w-full">    <a href="../index.php" class="flex items-center space-x-4 text-white">
+    <div class="flex flex-col items-end justify-start overflow-hidden mb-2 xl:max-w-3xl w-full">   
+       <a href="../frontend/home.php" class="flex items-center space-x-4 text-white">
              <i class="fas fa-home"></i>
             <span>Accueil</span>
         </a> </div>
@@ -67,31 +77,45 @@ if (isset($_POST["connecter"]) && !empty($_POST["email"]) && !empty($_POST["pass
     $result =User::login($email ,$pwd)   ;// l password recupere par la requette sq
     if ( $result['success']) {
       $user = $result['user'];
-      print_r($user);
+   //   print_r($user);
           //client
             session_start();
             session_regenerate_id();
             $_SESSION['login'] = TRUE;
-            $_SESSION['nom'] = $user->nom;    // Accès via l'objet $user
-            $_SESSION['id'] = $user->id_user; // Accès via l'objet $user
-            $_SESSION['id_role'] = $user->id_role; // Accès via l'objet $user
+            $_SESSION['nom'] = $user->nom ."  ". $user->prenom;    
+            $_SESSION['id'] = $user->id_user; 
+            $_SESSION['id_role'] = $user->id_role; 
             echo 'Bienvenue  ' . htmlspecialchars($user->nom, ENT_QUOTES);
            // echo "<br><p class='text-red-500 text-center'> role est" . $id_role ."</p>";
-                if($user->id_role==1) //admin
+                if($user->id_role==1) //SuperAdmin
                 {
                   echo "<p class='text-red-500 text-center'>admin.</p>";
                   $_SESSION['role'] ="admin" ;
-                 
-                 header("location:../frontend/Dashboard_admin.php") ;
-                } else if ($user->id_role==2) {
+                  header("location:../frontend/client.php") ;
+                  exit ;}
+                if($user->id_role==2) //admin
+                {
+                  echo "<p class='text-red-500 text-center'>admin.</p>";
+                  $_SESSION['role'] ="admin" ;
+                  header("location:../frontend/Dashboard.php") ;
+                  exit ;
+                } else if ($user->id_role==3) {
                   $_SESSION['role'] ="client" ;
                   header("location:../frontend/home.php") ;
-                  echo "<p class='text-red-500 text-center'>client</p>";
+                  exit ;
                 }
         
-    } else {
-        echo "<p class='text-red-500 text-center'>Veuillez vérifier votre email.</p>";
-    }
+         
+              
+                } else{
+                  $_SESSION['msgSweetAlert']= [
+                    'title' =>'Avertissment'  ,
+                    'text' => 'Erreur d authentification ',
+                    'status' => 'error'
+               ] ;
+               sweetAlert('login.php'); 
+               exit; 
+                 }
 
 }
 ?>

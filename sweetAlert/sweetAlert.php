@@ -1,31 +1,30 @@
 <?php
 
-// Syntax:
-
-// swal("add title Text","Add simple text","add icon",
-//        {Json Format To add other swal function})
 
 
+function sweetAlert($redirectUrl) {
+  if (isset($_SESSION['msgSweetAlert'])) {
+      $titre = $_SESSION['msgSweetAlert']['title'];
+      $text = $_SESSION['msgSweetAlert']['text'];
+      $status = $_SESSION['msgSweetAlert']['status'];
 
- function sweetAlert(){
- 
-    $titre = $_SESSION['msgSweetAlert']['title'] ;
-    $text = $_SESSION['msgSweetAlert']['text'] ;
-    $status= $_SESSION['msgSweetAlert']['status'] ;
-     echo " <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                Swal.fire({
-                    title: '".($status === "success" ? "Succès" : "Erreur")."',
-                    text: '$text',
-                    icon: '$status'
-                });
-            });
+      echo "<script>
+          document.addEventListener('DOMContentLoaded', function() {
+              Swal.fire({
+                  title: '".($status === "success" ? "Succès" : "Erreur")."',
+                  text: '$text',
+                  icon: '$status',
+                  showConfirmButton: false,
+                  timer: 1000 // 2000 milliseconds = 2 seconds
+              }).then(() => {
+                  window.location.href = '$redirectUrl'; // Redirect after alert
+              });
+          });
+      </script>";
 
-         </script>" ; 
-        unset( $_SESSION['msgSweetAlert'] );
-
-
- }
+      unset($_SESSION['msgSweetAlert']); // Clear the message after displaying
+  }
+}
  function sweetAlertDelete( $message){
  echo " <script> Swal.fire({
     title: 'Êtes-vous sûr ?',

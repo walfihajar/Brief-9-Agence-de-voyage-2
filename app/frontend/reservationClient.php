@@ -1,18 +1,17 @@
 <?php
 ob_start(); 
 session_start() ;
-    if($_SESSION['id_role']!=1 ||  $_SESSION['id_role'] !=3){ //client 
+    if($_SESSION['role']!="client"){ //client
       header("location: erreur.php") ;
       exit ;
     }
-    else if($_SESSION['id_role'] ==2 ||  $_SESSION['id_role'] ==1 ){ //admin ou superAdmin
+    else if($_SESSION['role'] =="client"){
        $id_user = $_SESSION['id'] ; 
     }
-
-
-$title = "Gestion des reservations";
+$title = "Vos réservations, votre histoire : Plongez dans vos prochaines escapades !";
 require_once __DIR__ . '/../../includ/DB.php';
-require_once __DIR__ . '/../backend/classe_reservation.php'; 
+require_once __DIR__ . '/../backend/class_reservation.php'; 
+
 
 if(isset($_POST["changeStatut"])){
     $id_reservation = intval($_POST["id_reservation"]);
@@ -20,11 +19,6 @@ if(isset($_POST["changeStatut"])){
     $reservation = new Reservation() ; 
     $resutlt = $reservation->changeStatut($id_reservation , $newStatut);
 
-}
-if (isset($_POST["archive"])) {
-    $id_reservation = intval($_POST["archive"]);
-    $reservation = new Reservation();
-    $reservation->archiveRes($id_reservation);
 }
 
 

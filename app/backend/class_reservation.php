@@ -1,4 +1,4 @@
-classe_reservation<?php
+<?php
 require_once(__DIR__ . '/../../includ/DB.php');
 enum Statut: string
     {
@@ -36,7 +36,8 @@ class Reservation
         $query = " select r.id_reservation, a.titre,  u.nom, u.prenom, r.statut, r.date_reservation , a.prix
                    from reservation as r
                    inner join activite as a on a.id_activite = r.id_activite               
-                   inner join users as u on u.id_user = r.id_user" ;    
+                   inner join users as u on u.id_user = r.id_user
+                   where r.archive = '0' ";    
         $stmt = $db->prepare($query);
         $stmt-> execute();
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -58,8 +59,8 @@ class Reservation
         $stmt->bindParam(':statut', $statutValue) ;
         $stmt->bindParam(':date_reservation' , $newRes->date_reservation ) ;
 
-        $stmt->execute(); 
-          
+        $result = $stmt->execute(); 
+        return  $result ;
     }
     static public function modifyReservation($modifiedRes){
 
@@ -89,25 +90,13 @@ class Reservation
         $stmt->execute();
     }
     
-    public function archiveRes($id_reservation){
+    public function archiveRes($id_reservation) {
         $query = "UPDATE reservation 
                   SET archive = '1' 
                   WHERE id_reservation = :id_reservation";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id_reservation', $id_reservation, PDO::PARAM_INT);
         $stmt->execute();
-    }}
+    }
 
-
-
-// $reservation1 = new Reservation(
-//     78,              
-//     1,                 
-//     2,                 
-//     Statut::enAttente,  
-//     date('2024-10-4 12:12:12'), 
-//     '0'                
-// );
-
-
-// Reservation::createReservation($reservation1);
+}
