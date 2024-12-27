@@ -42,7 +42,7 @@ if ($_SESSION['role'] != 'client') { // Utilisez '==' pour la comparaison
                 class="text-orange-400 flex items-center justify-center m-2 w-2/3 border-2 cursor-pointer border-orange-400 rounded-lg hover:scale-[1.1] hover:text-gray-800">
                 <span class="material-symbols-outlined cursor-pointer lg:text-4xl">kayaking</span> Activité
             </a>
-            <a href="reservation.php"
+            <a href="reservationClient.php"
                 class="text-orange-400 flex items-center m-2 justify-center w-2/3 border-2 cursor-pointer border-orange-400 rounded-lg hover:scale-[1.1] hover:text-gray-800">
                 <span class="material-symbols-outlined cursor-pointer lg:text-4xl">airplane_ticket</span> Réservation
             </a>

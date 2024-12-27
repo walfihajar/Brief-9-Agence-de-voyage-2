@@ -62,6 +62,18 @@ class Reservation
         $result = $stmt->execute(); 
         return  $result ;
     }
+
+
+    public function changeActivite($id_reservation,$newActivite){
+        $query = "update reservation
+                  set id_activite = :newActivite
+                  where id_reservation = :id_reservation";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id_reservation',$id_reservation,PDO::PARAM_INT);
+        $stmt->bindParam(':newActivite',$newActivite,PDO::PARAM_STR);
+        $stmt->execute();
+    }
     static public function modifyReservation($modifiedRes){
 
         $query = "update reservation
