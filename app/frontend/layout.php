@@ -52,8 +52,16 @@ if ($_SESSION['role'] != 'client') { // Utilisez '==' pour la comparaison
             </a>
         </nav>'; 
 } 
-?>
 
+if ($_SESSION['role'] == 'client') { // Utilisez '==' pour la comparaison
+    echo '<nav id="menu" class="hidden lg:flex flex-col justify-center mx-auto items-center align-center mt-16">
+            <a href="home.php"
+                class="text-orange-400 flex justify-center items-center m-2 w-2/3 border-2 cursor-pointer border-orange-400 rounded-lg hover:scale-[1.1] hover:text-gray-800">
+                <span class="material-symbols-outlined cursor-pointer lg:text-4xl">Home</span> Accueil
+            </a>
+        </nav>'; 
+} 
+?>
         </aside>
         <div  class="w-full">
             <header class="p-5 lg:my-2.5 ">
