@@ -69,29 +69,11 @@ $objActivite = new Activite($dbManager , 0);
         <a href='service.html' class='hover:text-[#FEA116] '>Service</a>
         <a href='contact.html' class='hover:text-[#FEA116] '>Contact</a>
 
+        <a href='reservationClient.php' class='hover:text-[#FEA116] '>
+        <span class="material-symbols-outlined text-4xl ">
+          airplane_ticket
+          </span></i></a>
        
-          <?php if($_SESSION['id_role'] ==3 ){ //client
-                      echo " <a href='reservationClient.php' class='hover:text-[#FEA116] '>
-                <span class='material-symbols-outlined text-4xl '>
-                  airplane_ticket
-                  </span></i></a>"
-                      exit ;
-            }
-            else if($_SESSION['id_role'] ==2   ){ //admin et super admin 
-              echo " <a href='Dashboard.php' class='hover:text-[#FEA116] '>
-              <span class='material-symbols-outlined text-4xl '>
-                airplane_ticket
-                </span></i></a>"
-                    exit ;
-            } 
-            else if($_SESSION['id_role'] ==1   ){ //admin et super admin 
-              echo " <a href='client.php' class='hover:text-[#FEA116] '>
-              <span class='material-symbols-outlined text-4xl '>
-                airplane_ticket
-                </span></i></a>"
-                    exit ;
-            } 
-?>
           <div class='relative group'>
             <a href='#' id='menuToggle' class='flex items-center hover:text-[#FEA116] text-3xl'>
               <i class='fa-solid fa-user-tie'></i>
