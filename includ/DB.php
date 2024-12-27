@@ -6,7 +6,7 @@ class Database
     private static $instance = null; // Instance PDO pour éviter plusieurs connexions
 
     private $host = 'localhost'; // Hôte de la base de données (souvent localhost)
-    private $dbname = 'voyagePoo'; // Nom de votre base de données
+    private $dbname = 'voyagepoo'; // Nom de votre base de données
     private $username = 'root'; // Utilisateur de la base de données
     private $password = ''; // Mot de passe de l'utilisateur
 
